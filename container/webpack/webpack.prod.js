@@ -25,7 +25,8 @@ const prodConfig = {
     mode: 'production',
     plugins: [plugin_module_federation, plugin_html_webpack],
     output: {
-        filename: '[name].[contenthash].js'
+        filename: '[name].[contenthash].js',
+        publicPath: '/container/latest/'
     }
 }
 
