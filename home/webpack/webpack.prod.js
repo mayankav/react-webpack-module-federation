@@ -5,7 +5,6 @@ const { merge } = require('webpack-merge');
 const commonConfig = require('./webpack.common');
 
 const packageJson = require('../package.json');
-const domain = process.env.PRODUCTION_DOMAIN;
 
 // html-webpack plugin
 const HTMLWebpackPlugin = require('html-webpack-plugin');
@@ -13,12 +12,11 @@ const plugin_html_webpack = new HTMLWebpackPlugin({template: './public/index.htm
 // module-federation plugin
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const plugin_module_federation = new ModuleFederationPlugin({
-    name: 'container',
+    name: 'home',
+    filename: 'remoteEntry.js',
     shared: packageJson.dependencies,
-    remotes: {
-        marketing: `marketing@${domain}/marketing/latest/remoteEntry.js`,
-        auth: `auth@${domain}/auth/latest/remoteEntry.js`,
-        home: `home@${domain}/home/latest/remoteEntry.js`
+    exposes: {
+        './HomeApp' : './src/boot.js'
     }
 });
 
@@ -28,9 +26,9 @@ const prodConfig = {
     plugins: [plugin_module_federation, plugin_html_webpack],
     output: {
         filename: '[name].[contenthash].js',
-        publicPath: '/container/latest/'
+        publicPath: '/home/latest/'
     }
 }
 
-// keep prodConfig after commonConfig so that it has higher precedence
+// keep the production config after common config so that it has higher precedence
 module.exports = merge(commonConfig, prodConfig);
