@@ -30,5 +30,5 @@ const prodConfig = {
     }
 }
 
-// keep the production config after common config so that it has more precedence
+// keep the production config after common config so that it has higher precedence
 module.exports = merge(commonConfig, prodConfig);
