@@ -10,11 +10,11 @@ const plugin_html_webpack = new HTMLWebpackPlugin({template: './public/index.htm
 // module federation plugin
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const plugin_module_federation = new ModuleFederationPlugin({
-    name: 'marketing',
+    name: 'auth',
     // filename not fileName
     filename: 'remoteEntry.js',
     exposes: {
-        './MarketingApp' : './src/boot.js'
+        './AuthApp' : './src/boot.js'
     },
     shared: ['react', 'react-dom']
 })
@@ -23,13 +23,13 @@ const plugin_module_federation = new ModuleFederationPlugin({
 const devConfig = {
     mode: 'development',
     devServer: {
-        port: 5001,
+        port: 5002,
         historyApiFallback: {
             index: '/index.html'
         }
     },
     output: {
-        publicPath: 'http://localhost:5001/'
+        publicPath: 'http://localhost:5002/'
     },
     plugins: [ plugin_html_webpack, plugin_module_federation ]
 }

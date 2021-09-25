@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { mount } from 'marketing/MarketingApp';
+import { mount } from 'auth/AuthApp';
 
-const MarketingApp = () => {
+const AuthApp = (props) => {
     const history = useHistory();
     const ref = useRef(null);
 
@@ -13,6 +13,10 @@ const MarketingApp = () => {
             onNavigate: (location) => {
                 const nextPathname = location.pathname;
                 if(history.location.pathname !== nextPathname) history.push(nextPathname);
+            },
+            onUserSignIn: () => {
+                console.log('user signedIn..');
+                props.onUserSignIn();
             }
         });
         // onParentNavigate gets a location value passed by history.listen eventListener
@@ -22,4 +26,4 @@ const MarketingApp = () => {
     return <div ref={ref}></div>
 }
 
-export default MarketingApp;
+export default AuthApp;

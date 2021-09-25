@@ -14,7 +14,8 @@ const plugin_module_federation = new ModuleFederationPlugin({
     remotes: {
         // marketing in the key is just an alias 
         // marketing in the value is the name of the remote as mentioned in marketing's webpack config
-        marketing: 'marketing@http://localhost:5001/remoteEntry.js'
+        marketing: 'marketing@http://localhost:5001/remoteEntry.js',
+        auth: 'auth@http://localhost:5002/remoteEntry.js',
     },
     shared: ['react', 'react-dom']
 });
@@ -25,8 +26,11 @@ const devConfig = {
     devServer: {
         port: 5000,
         historyApiFallback: {
-            index: 'index.html'
+            index: '/index.html'
         }
+    },
+    output: {
+        publicPath: 'http://localhost:5000/'
     },
     plugins: [ plugin_html_webpack, plugin_module_federation ]
 }
