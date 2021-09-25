@@ -29,5 +29,5 @@ const prodConfig = {
     }
 }
 
-// keep prodConfig after commonConfig so that it has higher precedence
+// keep prodConfig after commonConfig so that it has a higher precedence
 module.exports = merge(commonConfig, prodConfig);
